@@ -108,7 +108,7 @@
         "display_name": "AerynOS repositories",
         "scope": "developer"
       },
-      "user_docs": {
+      "documentation": {
         "url": "https://aerynos.dev/users/",
         "display_name": "User Documentation",
         "scope": "end-user-docs"

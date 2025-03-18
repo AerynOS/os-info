@@ -14,6 +14,8 @@ mod schema;
 pub use schema::*;
 mod technology;
 pub use technology::*;
+mod os_release;
+pub use os_release::*;
 
 /// Top-level structure containing all OS information
 #[derive(Debug, Serialize, Deserialize)]
@@ -282,7 +284,7 @@ pub struct Website {
 }
 
 /// Website scope/purpose
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Eq, PartialEq)]
 #[serde(rename_all = "kebab-case")]
 pub enum WebsiteScope {
     /// Public-facing website
