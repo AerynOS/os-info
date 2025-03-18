@@ -24,6 +24,7 @@
           "required": ["id", "name", "display"],
           "properties": {
             "id": { "type": "string" },
+            "id_like": { "type": "string" },
             "name": { "type": "string" },
             "display": { "type": "string" },
             "former_identities": {
