@@ -55,7 +55,6 @@
         "strategy": "immediate",
         "rollback_support": true
       },
-      "composite": true,
       "boot": {
         "bootloader": "systemd-boot",
         "firmware": {
