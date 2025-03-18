@@ -1,0 +1,152 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AerynOS/os-info/refs/heads/main/schema/0.1/os-info.schema.json",
+  "os-info-version": "0.1",
+  "start_date": "2020-06-15T00:00:00Z",
+  "metadata": {
+    "identity": {
+      "id": "aerynos",
+      "id_like": "linux",
+      "name": "AerynOS",
+      "display": "AerynOS 0.25.1",
+      "former_identities": [
+        {
+          "id": "serpent-os",
+          "name": "Serpent OS",
+          "start_date": "2020-06-15T00:00:00Z",
+          "end_date": "2025-03-17T00:00:00Z",
+          "end_version": "0.24.6",
+          "announcement": "https://aerynos.com/blog/2025/02/14/evolve-this-os/"
+        }
+      ]
+    },
+    "maintainers": {
+      "founders": [
+        {
+          "name": "Ikey Doherty",
+          "role": "founder",
+          "email": "ikey@aerynos.com"
+        }
+       ],
+      "core_team": [
+        {
+          "name": "Core Team",
+          "role": "maintainer",
+          "email": "https://github.com/orgs/AerynOS/teams/core"
+        }
+      ]
+    },
+    "version": {
+      "full": "0.2025.1",
+      "short": "0.25.1",
+      "build_id": "2025.1",
+      "released": "2025-03-18T00:00:00Z"
+    }
+  },
+  "system": {
+    "composition": {
+      "bases": [],
+      "technology": {
+        "core": ["boulder", "moss"],
+        "optional": ["flatpak"]
+      }
+    },
+    "features": {
+      "atomic_updates": {
+        "strategy": "immediate",
+        "rollback_support": true
+      },
+      "composite": true,
+      "boot": {
+        "bootloader": "systemd-boot",
+        "firmware": {
+          "uefi": true,
+          "secure_boot": false,
+          "bios": false
+        }
+      },
+      "filesystem": {
+        "default": "xfs",
+        "supported": [
+          "ext4",
+          "f2fs",
+          "xfs"
+        ]
+      }
+    },
+    "kernel": {
+      "type": "monolithic",
+      "name": "linux"
+    },
+    "platform": {
+      "architecture": "x86_64",
+      "variant": "desktop"
+    },
+    "update": {
+      "strategy": "transactional",
+      "cadence": {
+        "type": "rolling",
+        "sync_interval": "weekly",
+        "sync_day": "Friday"
+      },
+      "approach": "full-system"
+    }
+  },
+  "resources": {
+    "websites": {
+      "homepage": {
+        "url": "https://aerynos.org",
+        "display_name": "AerynOS Website",
+        "scope": "public"
+      },
+      "support": {
+        "url": "https://github.com/orgs/AerynOS/discussions",
+        "display_name": "Community Discussions",
+        "scope": "public"
+      },
+      "source": {
+        "url": "https://github.com/AerynOS",
+        "display_name": "AerynOS repositories",
+        "scope": "developer"
+      },
+      "user_docs": {
+        "url": "https://aerynos.dev/users/",
+        "display_name": "User Documentation",
+        "scope": "end-user-docs"
+      },
+      "packaging_docs": {
+        "url": "https://aerynos.dev/packaging/",
+        "display_name": "Packaging Documentation",
+        "scope": "developer-docs"
+      },
+      "blog": {
+        "url": "https://aerynos.org/blog",
+        "display_name": "AerynOS Blog",
+        "scope": "public"
+      }
+    },
+    "social": {
+      "matrix": {
+        "url": "https://matrix.to/#/#aerynos:matrix.org",
+        "display_name": "Matrix Chat Room",
+        "platform": "matrix"
+      },
+      "youtube": {
+        "url": "https://www.youtube.com/@AerynOS",
+        "display_name": "YouTube Channel",
+        "platform": "youtube"
+      }
+    },
+    "funding": {
+      "github": {
+        "url": "https://github.com/sponsors/ikeycode",
+        "display_name": "GitHub Sponsors",
+        "platform": "github"
+      },
+      "kofi": {
+        "url": "https://ko-fi.com/AerynOS",
+        "display_name": "Ko-fi",
+        "platform": "kofi"
+      }
+    }
+  }
+}
