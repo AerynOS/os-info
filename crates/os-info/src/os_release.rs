@@ -115,48 +115,23 @@ impl From<&OSInfo> for OsRelease {
         // Set optional fields
         release.id_like = info.metadata.identity.id_like.clone();
 
-        // if we find page keyed as "home", its home, otherwise first Public
-        let home = info.resources.websites.get("homepage").or_else(|| {
-            info.resources
-                .websites
-                .values()
-                .find(|site| site.scope == crate::WebsiteScope::Public)
-        });
-        if let Some(site) = home {
-            release.home_url = Some(site.url.clone());
-        }
-
-        // If we find page keyed as "support", its support, otherwise first EndUserDocs
-        let support = info.resources.websites.get("support").or_else(|| {
-            info.resources
-                .websites
-                .values()
-                .find(|site| site.scope == crate::WebsiteScope::EndUserDocs)
-        });
-        if let Some(site) = support {
-            release.support_url = Some(site.url.clone());
-        }
-
-        // If we find page keyed as "bugs", its bug report, otherwise first DeveloperDocs
-        let bugs = info.resources.websites.get("bugs").or_else(|| {
-            info.resources
-                .websites
-                .values()
-                .find(|site| site.scope == crate::WebsiteScope::DeveloperDocs)
-        });
-        if let Some(site) = bugs {
-            release.bug_report_url = Some(site.url.clone());
-        }
-
-        // If we find page keyed as "documentation", its documentation, otherwise first EndUserDocs
-        let docs = info.resources.websites.get("documentation").or_else(|| {
-            info.resources
-                .websites
-                .values()
-                .find(|site| site.scope == crate::WebsiteScope::EndUserDocs)
-        });
-        if let Some(site) = docs {
-            release.documentation_url = Some(site.url.clone());
+        // Map website URLs based on their scope
+        for site in info.resources.websites.values() {
+            match site.scope {
+                crate::WebsiteScope::Home => {
+                    release.home_url = Some(site.url.clone());
+                }
+                crate::WebsiteScope::Support => {
+                    release.support_url = Some(site.url.clone());
+                }
+                crate::WebsiteScope::BugTracker => {
+                    release.bug_report_url = Some(site.url.clone());
+                }
+                crate::WebsiteScope::Documentation => {
+                    release.documentation_url = Some(site.url.clone());
+                }
+                _ => {}
+            }
         }
 
         release

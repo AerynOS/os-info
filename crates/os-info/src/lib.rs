@@ -287,10 +287,18 @@ pub struct Website {
 #[derive(Debug, Serialize, Deserialize, Eq, PartialEq)]
 #[serde(rename_all = "kebab-case")]
 pub enum WebsiteScope {
-    /// Public-facing website
-    Public,
+    /// Main project homepage
+    Home,
+    /// General documentation
+    Documentation,
+    /// User support resources
+    Support,
+    /// Bug reporting/issue tracking
+    BugTracker,
     /// Developer portal
     Developer,
+    /// Public-facing website
+    Public,
     /// End user documentation
     EndUserDocs,
     /// Developer documentation

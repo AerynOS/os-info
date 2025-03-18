@@ -93,31 +93,36 @@
   },
   "resources": {
     "websites": {
-      "homepage": {
-        "url": "https://aerynos.org",
-        "display_name": "AerynOS Website",
-        "scope": "public"
-      },
-      "support": {
-        "url": "https://github.com/orgs/AerynOS/discussions",
-        "display_name": "Community Discussions",
-        "scope": "public"
-      },
-      "source": {
-        "url": "https://github.com/AerynOS",
-        "display_name": "AerynOS repositories",
-        "scope": "developer"
-      },
-      "documentation": {
-        "url": "https://aerynos.dev/users/",
-        "display_name": "User Documentation",
-        "scope": "end-user-docs"
-      },
-      "packaging_docs": {
-        "url": "https://aerynos.dev/packaging/",
-        "display_name": "Packaging Documentation",
-        "scope": "developer-docs"
-      },
+        "homepage": {
+          "url": "https://aerynos.com",
+          "display_name": "AerynOS Website",
+          "scope": "home"
+        },
+        "support": {
+          "url": "https://github.com/orgs/AerynOS/discussions",
+          "display_name": "Community Discussions",
+          "scope": "support"
+        },
+        "bugs": {
+          "url": "https://github.com/AerynOS/issues",
+          "display_name": "Issue Tracker",
+          "scope": "bug-tracker"
+        },
+        "source": {
+          "url": "https://github.com/AerynOS",
+          "display_name": "AerynOS repositories",
+          "scope": "developer"
+        },
+        "documentation": {
+          "url": "https://aerynos.dev/",
+          "display_name": "User Documentation",
+          "scope": "documentation"
+        },
+        "packaging_docs": {
+          "url": "https://aerynos.dev/packaging/",
+          "display_name": "Packaging Documentation",
+          "scope": "developer-docs"
+        },
       "blog": {
         "url": "https://aerynos.org/blog",
         "display_name": "AerynOS Blog",

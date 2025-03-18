@@ -204,8 +204,12 @@
               "scope": {
                 "type": "string",
                 "enum": [
-                  "public",
+                  "home",
+                  "documentation",
+                  "support",
+                  "bug-tracker",
                   "developer",
+                  "public", 
                   "end-user-docs",
                   "developer-docs"
                 ],
