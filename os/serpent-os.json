@@ -1,0 +1,146 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AerynOS/os-info/refs/heads/main/schema/0.1/os-info.schema.json",
+  "os-info-version": "0.1",
+  "start_date": "2020-06-15T00:00:00Z",
+  "metadata": {
+    "identity": {
+      "id": "serpent-os",
+      "id_like": "linux",
+      "name": "Serpent OS",
+      "display": "Serpent OS 0.24.6"
+    },
+    "maintainers": {
+      "founders": [
+        {
+          "name": "Ikey Doherty",
+          "role": "founder",
+          "email": "ikey@serpentos.com"
+        }
+      ],
+      "core_team": [
+        {
+          "name": "Core Team",
+          "role": "maintainer",
+          "email": "https://github.com/orgs/serpent-os/teams/core"
+        }
+      ]
+    },
+    "version": {
+      "full": "0.2024.6",
+      "short": "0.24.6",
+      "build_id": "2024.6",
+      "released": "2025-03-17T00:00:00Z"
+    }
+  },
+  "system": {
+    "composition": {
+      "bases": [],
+      "technology": {
+        "core": ["boulder", "moss"],
+        "optional": ["flatpak"]
+      }
+    },
+    "features": {
+      "atomic_updates": {
+        "strategy": "immediate",
+        "rollback_support": true
+      },
+      "boot": {
+        "bootloader": "systemd-boot",
+        "firmware": {
+          "uefi": true,
+          "secure_boot": false,
+          "bios": false
+        }
+      },
+      "filesystem": {
+        "default": "ext4",
+        "supported": [
+          "ext4",
+          "f2fs",
+          "xfs"
+        ]
+      }
+    },
+    "kernel": {
+      "type": "monolithic",
+      "name": "linux"
+    },
+    "platform": {
+      "architecture": "x86_64",
+      "variant": "desktop"
+    },
+    "update": {
+      "strategy": "transactional",
+      "cadence": {
+        "type": "rolling",
+        "sync_interval": "weekly",
+        "sync_day": "Friday"
+      },
+      "approach": "full-system"
+    }
+  },
+  "resources": {
+    "websites": {
+        "homepage": {
+          "url": "https://serpentos.com",
+          "display_name": "Serpent OS Website",
+          "scope": "home"
+        },
+        "support": {
+          "url": "https://github.com/orgs/serpent-os/discussions",
+          "display_name": "Community Discussions",
+          "scope": "support"
+        },
+        "bugs": {
+          "url": "https://github.com/serpent-os/issues",
+          "display_name": "Issue Tracker",
+          "scope": "bug-tracker"
+        },
+        "source": {
+          "url": "https://github.com/serpent-os",
+          "display_name": "Serpent OS repositories",
+          "scope": "developer"
+        },
+        "documentation": {
+          "url": "https://docs.serpentps.com/docs/users/",
+          "display_name": "User Documentation",
+          "scope": "documentation"
+        },
+        "packaging_docs": {
+          "url": "https://docs.serpentos.com/docs/packaging/",
+          "display_name": "Packaging Documentation",
+          "scope": "developer-docs"
+        },
+      "blog": {
+        "url": "https://serpentos.org/blog",
+        "display_name": "Serpent OS Blog",
+        "scope": "public"
+      }
+    },
+    "social": {
+      "matrix": {
+        "url": "https://matrix.to/#/#serpent-os:matrix.org",
+        "display_name": "Matrix Chat Room",
+        "platform": "matrix"
+      },
+      "youtube": {
+        "url": "https://www.youtube.com/@SerpentOS",
+        "display_name": "YouTube Channel",
+        "platform": "youtube"
+      }
+    },
+    "funding": {
+      "github": {
+        "url": "https://github.com/sponsors/ikeycode",
+        "display_name": "GitHub Sponsors",
+        "platform": "github"
+      },
+      "kofi": {
+        "url": "https://ko-fi.com/serpent-os",
+        "display_name": "Ko-fi",
+        "platform": "kofi"
+      }
+    }
+  }
+}
