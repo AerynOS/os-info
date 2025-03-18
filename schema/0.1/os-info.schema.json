@@ -70,8 +70,8 @@
             "short": { "type": "string" },
             "build_id": { "type": "string" },
             "released": { "type": "string", "format": "date-time" },
-            "announcement": { "type": ["string", "null"] },
-            "codename": { "type": ["string", "null"] }
+            "announcement": { "type": ["string"] },
+            "codename": { "type": ["string"] }
           }
         }
       }
