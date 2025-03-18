@@ -200,7 +200,16 @@
             "properties": {
               "url": { "type": "string", "format": "uri" },
               "display_name": { "type": "string" },
-              "scope": { "type": "string" }
+              "scope": {
+                "type": "string",
+                "enum": [
+                  "public",
+                  "developer",
+                  "end-user-docs",
+                  "developer-docs"
+                ],
+                "description": "The intended audience/purpose of the website link"
+              }
             }
           }
         },
