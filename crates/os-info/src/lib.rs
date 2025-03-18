@@ -10,7 +10,8 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
-pub mod schema;
+mod schema;
+pub use schema::*;
 mod technology;
 pub use technology::*;
 

@@ -1,4 +1,5 @@
 use super::*;
+use crate::load_os_info_from_path;
 use std::fs;
 
 const SAMPLE_PATH: &str = "../../sample.json";
@@ -7,8 +8,7 @@ const TECHNOLOGIES_PATH: &str = "../../technologies";
 /// Tests that sample.json can be parsed successfully
 #[test]
 fn test_parse_sample_os_info() {
-    let content = fs::read_to_string(SAMPLE_PATH).unwrap();
-    let os_info: OSInfo = serde_json::from_str(&content).unwrap();
+    let os_info = load_os_info_from_path(SAMPLE_PATH).unwrap();
 
     assert_eq!(os_info.version, "0.1");
     assert_eq!(os_info.metadata.identity.id, "aerynos");
@@ -32,8 +32,7 @@ fn test_parse_technologies() {
 
     for path in paths {
         let path = path.unwrap().path();
-        let content = fs::read_to_string(&path).unwrap();
-        let tech: TechnologyCapabilities = serde_json::from_str(&content).unwrap();
+        let tech = load_technology_from_path(path).unwrap();
 
         // Verify basic fields are present
         assert!(!tech.name.is_empty());
