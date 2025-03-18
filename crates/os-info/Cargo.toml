@@ -1,0 +1,11 @@
+[package]
+name = "os-info"
+version = "0.1.0"
+edition = "2021"
+description = "Handle os-info.json files"
+license = "MPL-2.0"
+repository = "https://github.com/AerynOS/OS-Info"
+
+[dependencies]
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true
