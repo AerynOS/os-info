@@ -72,6 +72,160 @@ fn test_maintainer_role_serialization() {
 }
 
 #[test]
+fn test_security_contact_and_policy_links() {
+    let json = r#"
+{
+    "os-info-version": "0.1",
+    "start_date": "2023-01-01T00:00:00Z",
+    "metadata": {
+        "identity": {
+            "id": "test-os",
+            "name": "Test OS",
+            "display": "Test OS",
+            "former_identities": []
+        },
+        "maintainers": {
+            "core": [
+                {
+                    "name": "Test User",
+                    "role": "founder",
+                    "email": "test@example.com"
+                }
+            ]
+        },
+        "version": {
+            "full": "1.0.0",
+            "short": "1.0",
+            "build_id": "123abc",
+            "released": "2023-02-01T00:00:00Z"
+        }
+    },
+    "system": {
+        "composition": {
+            "bases": ["linux"],
+            "technology": {
+                "core": ["moss", "boulder", "apparmor"],
+                "optional": ["selinux"]
+            }
+        },
+        "features": {
+            "atomic_updates": {
+                "strategy": "none",
+                "rollback_support": false
+            },
+            "boot": {
+                "bootloader": "grub",
+                "firmware": {
+                    "uefi": true,
+                    "secure_boot": false,
+                    "bios": true
+                }
+            },
+            "filesystem": {
+                "default": "ext4",
+                "supported": ["ext4"]
+            }
+        },
+        "kernel": {
+            "type": "monolithic",
+            "name": "linux"
+        },
+        "platform": {
+            "architecture": "x86_64",
+            "variant": "generic"
+        },
+        "update": {
+            "strategy": "none",
+            "cadence": {
+                "type": "fixed",
+                "release_schedule": "6 months"
+            },
+            "approach": "package manager"
+        }
+    },
+    "resources": {
+        "websites": {
+            "home": {
+                "url": "https://example.com",
+                "display_name": "Test OS",
+                "scope": "home"
+            },
+            "privacy": {
+                "url": "https://example.com/privacy",
+                "display_name": "Privacy Policy",
+                "scope": "privacy-policy"
+            },
+            "tos": {
+                "url": "https://example.com/terms",
+                "display_name": "Terms of Service",
+                "scope": "terms-of-service"
+            },
+            "security": {
+                "url": "https://example.com/security",
+                "display_name": "Security Policy",
+                "scope": "security-policy"
+            }
+        },
+        "social": {},
+        "funding": {}
+    },
+    "security_contact": {
+        "email": "security@example.com",
+        "pgp_key": "-----BEGIN PGP PUBLIC KEY BLOCK-----\nSample Key\n-----END PGP PUBLIC KEY BLOCK-----",
+        "disclosure_policy": "Responsible disclosure within 90 days"
+    }
+}"#;
+
+    let os_info: OSInfo = serde_json::from_str(json).unwrap();
+
+    // Check security contact
+    assert_eq!(
+        os_info.security_contact.as_ref().unwrap().email,
+        Some("security@example.com".to_string())
+    );
+
+    // Check policy links in websites
+    let privacy_site = os_info.resources.websites.get("privacy").unwrap();
+    assert_eq!(privacy_site.scope, WebsiteScope::PrivacyPolicy);
+    assert_eq!(privacy_site.url, "https://example.com/privacy");
+
+    let tos_site = os_info.resources.websites.get("tos").unwrap();
+    assert_eq!(tos_site.scope, WebsiteScope::TermsOfService);
+
+    let security_site = os_info.resources.websites.get("security").unwrap();
+    assert_eq!(security_site.scope, WebsiteScope::SecurityPolicy);
+
+    // Check technologies in composition (confirming security technologies are included as standard technologies)
+    assert!(os_info
+        .system
+        .composition
+        .technology
+        .core
+        .contains(&"apparmor".to_string()));
+    assert!(os_info
+        .system
+        .composition
+        .technology
+        .optional
+        .contains(&"selinux".to_string()));
+
+    // Check conversion to OsRelease
+    let release = OsRelease::from(&os_info);
+    assert!(release.extra_fields.contains_key("PRIVACY_POLICY_URL"));
+    assert_eq!(
+        release.extra_fields.get("PRIVACY_POLICY_URL").unwrap(),
+        "https://example.com/privacy"
+    );
+    assert!(release.extra_fields.contains_key("TERMS_OF_SERVICE_URL"));
+    assert!(release.extra_fields.contains_key("SECURITY_POLICY_URL"));
+    assert!(release.extra_fields.contains_key("SECURITY_CONTACT"));
+    assert_eq!(
+        release.extra_fields.get("SECURITY_CONTACT").unwrap(),
+        "security@example.com"
+    );
+}
+
+#[test]
 fn test_website_scope_serialization() {
     let website = Website {
         url: "https://example.com".to_string(),

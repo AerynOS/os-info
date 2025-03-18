@@ -59,13 +59,13 @@
                     "enum": ["founder", "maintainer", "contributor"]
                   },
                   "email": { "type": "string" },
-                  "start_date": { 
-                    "type": "string", 
+                  "start_date": {
+                    "type": "string",
                     "format": "date-time",
                     "description": "When the maintainer joined the project"
                   },
-                  "end_date": { 
-                    "type": "string", 
+                  "end_date": {
+                    "type": "string",
                     "format": "date-time",
                     "description": "When the maintainer left the project (if applicable)"
                   }
@@ -219,9 +219,13 @@
                   "support",
                   "bug-tracker",
                   "developer",
-                  "public", 
+                  "public",
                   "end-user-docs",
-                  "developer-docs"
+                  "developer-docs",
+                  "privacy-policy",
+                  "terms-of-service",
+                  "legal",
+                  "security-policy"
                 ],
                 "description": "The intended audience/purpose of the website link"
               }
@@ -250,6 +254,14 @@
               "display_name": { "type": "string" },
               "platform": { "type": "string" }
             }
+          }
+        },
+        "security_contact": {
+          "type": "object",
+          "properties": {
+            "email": { "type": "string", "format": "email" },
+            "pgp_key": { "type": "string" },
+            "disclosure_policy": { "type": "string" }
           }
         }
       }

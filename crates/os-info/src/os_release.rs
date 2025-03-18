@@ -130,7 +130,31 @@ impl From<&OSInfo> for OsRelease {
                 crate::WebsiteScope::Documentation => {
                     release.documentation_url = Some(site.url.clone());
                 }
+                crate::WebsiteScope::PrivacyPolicy => {
+                    release
+                        .extra_fields
+                        .insert("PRIVACY_POLICY_URL".to_string(), site.url.clone());
+                }
+                crate::WebsiteScope::TermsOfService => {
+                    release
+                        .extra_fields
+                        .insert("TERMS_OF_SERVICE_URL".to_string(), site.url.clone());
+                }
+                crate::WebsiteScope::SecurityPolicy => {
+                    release
+                        .extra_fields
+                        .insert("SECURITY_POLICY_URL".to_string(), site.url.clone());
+                }
                 _ => {}
+            }
+        }
+
+        // Add security contact to extra fields if available
+        if let Some(contact) = &info.security_contact {
+            if let Some(email) = &contact.email {
+                release
+                    .extra_fields
+                    .insert("SECURITY_CONTACT".to_string(), email.clone());
             }
         }
 

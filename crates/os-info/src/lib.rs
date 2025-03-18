@@ -32,6 +32,9 @@ pub struct OSInfo {
     pub system: System,
     /// Links to project resources
     pub resources: Resources,
+    /// Security contact information
+    #[serde(default)]
+    pub security_contact: Option<SecurityContact>,
 }
 
 /// Metadata about the OS including identity, maintainers and version information
@@ -308,6 +311,14 @@ pub enum WebsiteScope {
     EndUserDocs,
     /// Developer documentation
     DeveloperDocs,
+    /// Privacy policy document
+    PrivacyPolicy,
+    /// Terms of service/use document
+    TermsOfService,
+    /// Legal information
+    Legal,
+    /// Security policy and vulnerability reporting
+    SecurityPolicy,
 }
 
 /// Social media link
@@ -330,6 +341,16 @@ pub struct FundingLink {
     pub display_name: String,
     /// Platform name
     pub platform: String,
+}
+/// Security contact information for vulnerability reporting
+#[derive(Debug, Default, Serialize, Deserialize)]
+pub struct SecurityContact {
+    /// Email address for security-related communications
+    pub email: Option<String>,
+    /// PGP key for encrypted vulnerability reports
+    pub pgp_key: Option<String>,
+    /// Vulnerability disclosure policy
+    pub disclosure_policy: Option<String>,
 }
 
 #[cfg(test)]
