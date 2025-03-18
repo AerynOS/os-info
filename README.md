@@ -14,7 +14,40 @@ This project provides JSON schemas and examples for representing comprehensive i
 
 While other tools like lsb_release and os-release exist for basic OS identification, this project aims to provide a more comprehensive schema that includes capabilities, resources, and system composition details that those tools don't cover. Where lsb_release focuses on Linux compatibility information and os-release provides basic identification, os-info standardizes metadata about an OS's full feature set and ecosystem.
 
+## File Locations
 
+The os-info files follow a standard layout and precedence order:
+
+### Primary Locations
+- Runtime configuration: `/etc/os-info.json`
+- System default: `/usr/lib/os-info.json`
+
+These paths are typically symlinks to the appropriate OS definition file in the os-info data directory.
+
+### Data Directory Structure
+```
+/usr/lib/os-info/
+├── os/                    # OS definitions
+│   ├── serpent-os.json
+│   ├── fedora.json
+│   └── ...
+└── technologies/          # Technology capabilities
+    ├── moss.json
+    ├── boulder.json
+    └── ...
+```
+
+### Precedence
+Applications should check locations in this order:
+1. `/etc/os-info.json` - System-specific configuration
+2. `/usr/lib/os-info.json` - Vendor-provided default
+3. `/usr/lib/os-info/os/{id}.json` - Base OS definition
+
+This structure allows:
+- Easy switching between OS definitions via symlinks
+- Central storage of all OS definitions
+- System-specific customizations when needed
+- Clear separation between OS definitions and technology capabilities
 
 ## Schema Structure
 
