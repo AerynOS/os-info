@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AerynOS/os-info/refs/heads/main/schema/0.1/technology-capabilities.schema.json",
+  "technology-capabilities-version": "1.0",
+  "name": "flatpak",
+  "description": "Application sandboxing and distribution framework",
+  "links": {
+    "documentation": {
+      "type": "website",
+      "category": "documentation",
+      "url": "https://docs.flatpak.org"
+    }
+  }
+}
