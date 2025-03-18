@@ -14,7 +14,7 @@ This project provides JSON schemas and examples for representing comprehensive i
 
 While other tools like lsb_release and os-release exist for basic OS identification, this project aims to provide a more comprehensive schema that includes capabilities, resources, and system composition details that those tools don't cover. Where lsb_release focuses on Linux compatibility information and os-release provides basic identification, os-info standardizes metadata about an OS's full feature set and ecosystem.
 
-A Rust library with C bindings is under development to provide a standard way to read and work with this format.
+
 
 ## Schema Structure
 
@@ -50,14 +50,51 @@ See [`sample.json`](sample.json) for a complete example implementation.
 
 ```
 .
+├── crates/
+│   └── os-info/           # Rust library implementation
 ├── schema/
 │   └── 0.1/
 │       ├── os-info.schema.json
 │       └── technology-capabilities.schema.json
 ├── technologies/
-│   └── *.json
-└── sample.json
+│   └── *.json            # Technology capability definitions
+└── sample.json           # Example OS info file
 ```
+
+## Rust Library
+
+The project includes a Rust library for working with os-info files. The library provides:
+
+- Type-safe structs representing the full OS info schema
+- Serialization/deserialization via serde
+- Helper functions for loading files
+- Error handling for common failure cases
+
+### Usage
+
+Add to your `Cargo.toml`:
+```toml
+[dependencies]
+os-info = "0.1"
+```
+
+Basic example:
+```rust
+use os_info::{load_os_info_from_path, load_technology_from_path};
+
+// Load and parse an OS info file
+let os_info = load_os_info_from_path("os-info.json")?;
+
+// Access the parsed data
+println!("OS Name: {}", os_info.metadata.identity.name);
+println!("Version: {}", os_info.metadata.version.full);
+
+// Load technology capabilities
+let tech = load_technology_from_path("technologies/moss.json")?;
+println!("Technology: {}", tech.name);
+```
+
+The library provides strongly-typed structs for all schema components, making it easy to work with OS info data in a type-safe way.
 
 ## Contributing
 
