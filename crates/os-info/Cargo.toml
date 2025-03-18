@@ -2,11 +2,11 @@
 name = "os-info"
 version = "0.1.0"
 edition = "2021"
-description = "Handle os-info.json files"
 license = "MPL-2.0"
-repository = "https://github.com/AerynOS/OS-Info"
+description = "Structured OS information standard"
 
 [dependencies]
 serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
 thiserror.workspace = true
+chrono = { workspace = true, features = ["serde"] }

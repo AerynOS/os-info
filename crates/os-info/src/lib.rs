@@ -7,6 +7,7 @@
 //! This module provides types for storing and serializing information about an operating system,
 //! including system details, versioning, maintainers, and resources.
 
+use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
@@ -24,7 +25,7 @@ pub struct OSInfo {
     #[serde(rename = "os-info-version")]
     pub version: String,
     /// Date the OS project was started
-    pub start_date: String,
+    pub start_date: DateTime<Utc>,
     /// Metadata about the OS
     pub metadata: Metadata,
     /// System configuration and details
@@ -69,9 +70,9 @@ pub struct FormerIdentity {
     /// Previous OS name
     pub name: String,
     /// When this identity started
-    pub start_date: String,
+    pub start_date: DateTime<Utc>,
     /// When this identity ended
-    pub end_date: String,
+    pub end_date: DateTime<Utc>,
     /// Version when identity was changed
     pub end_version: Option<String>,
     /// Link to announcement of change
@@ -88,9 +89,9 @@ pub struct Maintainer {
     /// Contact email
     pub email: String,
     /// When the maintainer joined the project
-    pub start_date: Option<String>,
+    pub start_date: Option<DateTime<Utc>>,
     /// When the maintainer left the project (if applicable)
-    pub end_date: Option<String>,
+    pub end_date: Option<DateTime<Utc>>,
 }
 
 /// Role types for maintainers
@@ -115,7 +116,7 @@ pub struct VersionInfo {
     /// Unique build identifier
     pub build_id: String,
     /// Release date
-    pub released: String,
+    pub released: DateTime<Utc>,
     /// Link to release announcement
     pub announcement: Option<String>,
     /// Version codename

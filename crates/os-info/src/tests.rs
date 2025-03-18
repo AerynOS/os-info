@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 use super::*;
+use chrono::Utc;
 use std::fs;
 
 const SAMPLE_PATH: &str = "../../sample.json";
@@ -53,7 +54,11 @@ fn test_maintainer_role_serialization() {
         name: "Test User".to_string(),
         role: MaintainerRole::Founder,
         email: "test@example.com".to_string(),
-        start_date: Some("2023-01-01T00:00:00Z".to_string()),
+        start_date: Some(
+            chrono::DateTime::parse_from_rfc3339("2023-01-01T00:00:00Z")
+                .unwrap()
+                .with_timezone(&Utc),
+        ),
         end_date: None,
     };
 
@@ -79,4 +84,137 @@ fn test_website_scope_serialization() {
 
     assert_eq!(website.url, deserialized.url);
     assert!(matches!(deserialized.scope, WebsiteScope::Public));
+}
+
+#[test]
+fn test_date_parsing() {
+    let json = r#"
+    {
+        "os-info-version": "0.1",
+        "start_date": "2023-01-01T00:00:00Z",
+        "metadata": {
+            "identity": {
+                "id": "test-os",
+                "name": "Test OS",
+                "display": "Test OS",
+                "former_identities": [
+                    {
+                        "id": "old-os",
+                        "name": "Old OS",
+                        "start_date": "2020-01-01T00:00:00Z",
+                        "end_date": "2022-12-31T23:59:59Z"
+                    }
+                ]
+            },
+            "maintainers": {
+                "core": [
+                    {
+                        "name": "Test User",
+                        "role": "founder",
+                        "email": "test@example.com",
+                        "start_date": "2023-01-01T00:00:00Z"
+                    }
+                ]
+            },
+            "version": {
+                "full": "1.0.0",
+                "short": "1.0",
+                "build_id": "123abc",
+                "released": "2023-02-01T00:00:00Z"
+            }
+        },
+        "system": {
+            "composition": {
+                "bases": [],
+                "technology": {
+                    "core": [],
+                    "optional": []
+                }
+            },
+            "features": {
+                "atomic_updates": {
+                    "strategy": "none",
+                    "rollback_support": false
+                },
+                "boot": {
+                    "bootloader": "grub",
+                    "firmware": {
+                        "uefi": true,
+                        "secure_boot": false,
+                        "bios": true
+                    }
+                },
+                "filesystem": {
+                    "default": "ext4",
+                    "supported": ["ext4"]
+                }
+            },
+            "kernel": {
+                "type": "monolithic",
+                "name": "linux"
+            },
+            "platform": {
+                "architecture": "x86_64",
+                "variant": "generic"
+            },
+            "update": {
+                "strategy": "none",
+                "cadence": {
+                    "type": "fixed",
+                    "release_schedule": "6 months"
+                },
+                "approach": "package manager"
+            }
+        },
+        "resources": {
+            "websites": {
+                "home": {
+                    "url": "https://example.com",
+                    "display_name": "Test OS",
+                    "scope": "home"
+                }
+            },
+            "social": {},
+            "funding": {}
+        }
+    }"#;
+
+    let os_info: OSInfo = serde_json::from_str(json).unwrap();
+
+    // Check that dates were properly parsed
+    assert_eq!(
+        os_info.start_date,
+        chrono::DateTime::parse_from_rfc3339("2023-01-01T00:00:00Z")
+            .unwrap()
+            .with_timezone(&Utc)
+    );
+
+    let former = &os_info.metadata.identity.former_identities[0];
+    assert_eq!(
+        former.start_date,
+        chrono::DateTime::parse_from_rfc3339("2020-01-01T00:00:00Z")
+            .unwrap()
+            .with_timezone(&Utc)
+    );
+    assert_eq!(
+        former.end_date,
+        chrono::DateTime::parse_from_rfc3339("2022-12-31T23:59:59Z")
+            .unwrap()
+            .with_timezone(&Utc)
+    );
+
+    let maintainer = &os_info.metadata.maintainers.get("core").unwrap()[0];
+    assert_eq!(
+        maintainer.start_date.unwrap(),
+        chrono::DateTime::parse_from_rfc3339("2023-01-01T00:00:00Z")
+            .unwrap()
+            .with_timezone(&Utc)
+    );
+
+    assert_eq!(
+        os_info.metadata.version.released,
+        chrono::DateTime::parse_from_rfc3339("2023-02-01T00:00:00Z")
+            .unwrap()
+            .with_timezone(&Utc)
+    );
 }
