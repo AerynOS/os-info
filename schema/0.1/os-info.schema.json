@@ -1,0 +1,234 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["os-info-version", "start_date", "metadata", "system", "resources"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri"
+    },
+    "os-info-version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+$"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["identity", "maintainers", "version"],
+      "properties": {
+        "identity": {
+          "type": "object",
+          "required": ["id", "name", "display"],
+          "properties": {
+            "id": { "type": "string" },
+            "name": { "type": "string" },
+            "display": { "type": "string" },
+            "former_identities": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["id", "name", "start_date", "end_date"],
+                "properties": {
+                  "id": { "type": "string" },
+                  "name": { "type": "string" },
+                  "start_date": { "type": "string", "format": "date-time" },
+                  "end_date": { "type": "string", "format": "date-time" },
+                  "end_version": { "type": "string" },
+                  "announcement": { "type": "string", "format": "uri" }
+                }
+              }
+            }
+          }
+        },
+        "maintainers": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name", "role", "email"],
+              "properties": {
+                "name": { "type": "string" },
+                "role": {
+                  "type": "string",
+                  "enum": ["founder", "maintainer", "contributor"]
+                },
+                "email": { "type": "string" }
+              }
+            }
+          }
+        },
+        "version": {
+          "type": "object",
+          "required": ["full", "short", "build_id", "released"],
+          "properties": {
+            "full": { "type": "string" },
+            "short": { "type": "string" },
+            "build_id": { "type": "string" },
+            "released": { "type": "string", "format": "date-time" },
+            "announcement": { "type": ["string", "null"] },
+            "codename": { "type": ["string", "null"] }
+          }
+        }
+      }
+    },
+    "system": {
+      "type": "object",
+      "required": ["composition", "features", "kernel", "platform", "update"],
+      "properties": {
+        "composition": {
+          "type": "object",
+          "required": ["bases", "technology"],
+          "properties": {
+            "bases": { "type": "array" },
+            "technology": {
+              "type": "object",
+              "required": ["core", "optional"],
+              "properties": {
+                "core": { "type": "array", "items": { "type": "string" } },
+                "optional": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          }
+        },
+        "features": {
+          "type": "object",
+          "required": ["atomic_updates", "boot", "filesystem"],
+          "properties": {
+            "atomic_updates": {
+              "type": "object",
+              "required": ["strategy", "rollback_support"],
+              "properties": {
+                "strategy": { "type": "string" },
+                "rollback_support": { "type": "boolean" }
+              }
+            },
+            "boot": {
+              "type": "object",
+              "required": ["bootloader", "firmware"],
+              "properties": {
+                "bootloader": { "type": "string" },
+                "firmware": {
+                  "type": "object",
+                  "required": ["uefi", "secure_boot", "bios"],
+                  "properties": {
+                    "uefi": { "type": "boolean" },
+                    "secure_boot": { "type": "boolean" },
+                    "bios": { "type": "boolean" }
+                  }
+                }
+              }
+            },
+            "filesystem": {
+              "type": "object",
+              "required": ["default", "supported"],
+              "properties": {
+                "default": { "type": "string" },
+                "supported": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "kernel": {
+          "type": "object",
+          "required": ["type", "name"],
+          "properties": {
+            "type": { "type": "string" },
+            "name": { "type": "string" }
+          }
+        },
+        "platform": {
+          "type": "object",
+          "required": ["architecture", "variant"],
+          "properties": {
+            "architecture": { "type": "string" },
+            "variant": { "type": "string" }
+          }
+        },
+        "update": {
+          "type": "object",
+          "required": ["strategy", "cadence", "approach"],
+          "properties": {
+            "strategy": { "type": "string" },
+            "cadence": {
+              "type": "object",
+              "required": ["type"],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["rolling", "fixed", "lts", "point"]
+                },
+                "sync_interval": {
+                  "type": "string",
+                  "description": "For rolling releases only - how often updates sync"
+                },
+                "sync_day": {
+                  "type": "string",
+                  "description": "For rolling releases only - which day updates sync"
+                },
+                "release_schedule": {
+                  "type": "string",
+                  "description": "For fixed/point releases - describes release cadence e.g. '6 months', 'yearly'"
+                },
+                "support_timeline": {
+                  "type": "string",
+                  "description": "For LTS releases - how long releases are supported"
+                }
+              }
+            },
+            "approach": { "type": "string" }
+          }
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "required": ["websites", "social", "funding"],
+      "properties": {
+        "websites": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["url", "display_name", "scope"],
+            "properties": {
+              "url": { "type": "string", "format": "uri" },
+              "display_name": { "type": "string" },
+              "scope": { "type": "string" }
+            }
+          }
+        },
+        "social": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["url", "display_name", "platform"],
+            "properties": {
+              "url": { "type": "string", "format": "uri" },
+              "display_name": { "type": "string" },
+              "platform": { "type": "string" }
+            }
+          }
+        },
+        "funding": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["url", "display_name", "platform"],
+            "properties": {
+              "url": { "type": "string", "format": "uri" },
+              "display_name": { "type": "string" },
+              "platform": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
