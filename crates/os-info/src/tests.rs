@@ -53,6 +53,8 @@ fn test_maintainer_role_serialization() {
         name: "Test User".to_string(),
         role: MaintainerRole::Founder,
         email: "test@example.com".to_string(),
+        start_date: Some("2023-01-01T00:00:00Z".to_string()),
+        end_date: None,
     };
 
     let serialized = serde_json::to_string(&maintainer).unwrap();
@@ -60,6 +62,8 @@ fn test_maintainer_role_serialization() {
 
     assert_eq!(maintainer.name, deserialized.name);
     assert!(matches!(deserialized.role, MaintainerRole::Founder));
+    assert_eq!(maintainer.start_date, deserialized.start_date);
+    assert_eq!(maintainer.end_date, deserialized.end_date);
 }
 
 #[test]

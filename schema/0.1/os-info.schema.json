@@ -50,16 +50,26 @@
           "additionalProperties": {
             "type": "array",
             "items": {
-              "type": "object",
-              "required": ["name", "role", "email"],
-              "properties": {
-                "name": { "type": "string" },
-                "role": {
-                  "type": "string",
-                  "enum": ["founder", "maintainer", "contributor"]
-                },
-                "email": { "type": "string" }
-              }
+                "type": "object",
+                "required": ["name", "role", "email"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "role": {
+                    "type": "string",
+                    "enum": ["founder", "maintainer", "contributor"]
+                  },
+                  "email": { "type": "string" },
+                  "start_date": { 
+                    "type": "string", 
+                    "format": "date-time",
+                    "description": "When the maintainer joined the project"
+                  },
+                  "end_date": { 
+                    "type": "string", 
+                    "format": "date-time",
+                    "description": "When the maintainer left the project (if applicable)"
+                  }
+                }
             }
           }
         },

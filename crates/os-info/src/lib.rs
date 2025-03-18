@@ -87,6 +87,10 @@ pub struct Maintainer {
     pub role: MaintainerRole,
     /// Contact email
     pub email: String,
+    /// When the maintainer joined the project
+    pub start_date: Option<String>,
+    /// When the maintainer left the project (if applicable)
+    pub end_date: Option<String>,
 }
 
 /// Role types for maintainers
