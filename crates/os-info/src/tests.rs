@@ -1,5 +1,8 @@
+// SPDX-FileCopyrightText: Copyright © 2025 AerynOS Developers
+//
+// SPDX-License-Identifier: MPL-2.0
+
 use super::*;
-use crate::load_os_info_from_path;
 use std::fs;
 
 const SAMPLE_PATH: &str = "../../sample.json";
