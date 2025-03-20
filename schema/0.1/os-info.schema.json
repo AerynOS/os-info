@@ -27,6 +27,10 @@
             "id_like": { "type": "string" },
             "name": { "type": "string" },
             "display": { "type": "string" },
+            "ansi_color": { 
+              "type": "string",
+              "description": "ANSI color escape sequence for terminal branding"
+            },
             "former_identities": {
               "type": "array",
               "items": {

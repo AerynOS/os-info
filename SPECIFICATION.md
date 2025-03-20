@@ -36,6 +36,7 @@ The metadata section contains:
   - `id`: Unique OS identifier
   - `name`: Full OS name
   - `display`: Display name for presentation
+  - `ansi_color`: ANSI color escape sequence for terminal branding (optional)
   - `id_like`: Parent OS identifier (optional)
   - `former_identities`: Historical names and identifiers
 

@@ -8,6 +8,7 @@
       "id_like": "linux",
       "name": "AerynOS",
       "display": "AerynOS 0.25.1",
+      "ansi_color": "1;35",
       "former_identities": [
         {
           "id": "serpent-os",

@@ -115,6 +115,13 @@ impl From<&OSInfo> for OsRelease {
         // Set optional fields
         release.id_like = info.metadata.identity.id_like.clone();
 
+        // Set ANSI color if available
+        if let Some(ansi_color) = &info.metadata.identity.ansi_color {
+            release
+                .extra_fields
+                .insert("ANSI_COLOR".to_string(), ansi_color.clone());
+        }
+
         // Map website URLs based on their scope
         for site in info.resources.websites.values() {
             match site.scope {
@@ -205,6 +212,21 @@ mod tests {
     fn test_shell_escape() {
         assert_eq!(shell_escape("simple"), "\"simple\"");
         assert_eq!(shell_escape("with \"quotes\""), "\"with \\\"quotes\\\"\"");
+    }
+
+    #[test]
+    fn test_ansi_color() {
+        let mut info = load_os_info(include_str!("../../../sample.json")).unwrap();
+        info.metadata.identity.ansi_color = Some("38;2;23;147;209".to_string());
+
+        let release = OsRelease::from(&info);
+        assert_eq!(
+            release.extra_fields.get("ANSI_COLOR"),
+            Some(&"38;2;23;147;209".to_string())
+        );
+
+        let output = release.to_string();
+        assert!(output.contains("ANSI_COLOR=\"38;2;23;147;209\"\n"));
     }
 
     #[test]

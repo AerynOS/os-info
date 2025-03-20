@@ -61,6 +61,8 @@ pub struct Identity {
     pub name: String,
     /// Display name/branding
     pub display: String,
+    /// ANSI terminal color code for branding
+    pub ansi_color: Option<String>,
     /// Previous identities/names
     pub former_identities: Vec<FormerIdentity>,
 }
