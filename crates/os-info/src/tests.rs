@@ -20,7 +20,7 @@ fn test_parse_sample_os_info() {
 
     // Verify former identity
     let former = &os_info.metadata.identity.former_identities[0];
-    assert_eq!(former.id, "serpent-os");
+    assert_eq!(former.id, "serpentos");
     assert_eq!(former.name, "Serpent OS");
 
     // Verify core technologies
