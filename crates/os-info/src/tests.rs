@@ -176,7 +176,7 @@ fn test_security_contact_and_policy_links() {
     }
 }"#;
 
-    let os_info: OSInfo = serde_json::from_str(json).unwrap();
+    let os_info: OsInfo = serde_json::from_str(json).unwrap();
 
     // Check security contact
     assert_eq!(
@@ -333,7 +333,7 @@ fn test_date_parsing() {
         }
     }"#;
 
-    let os_info: OSInfo = serde_json::from_str(json).unwrap();
+    let os_info: OsInfo = serde_json::from_str(json).unwrap();
 
     // Check that dates were properly parsed
     assert_eq!(

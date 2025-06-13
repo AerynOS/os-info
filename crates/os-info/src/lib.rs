@@ -20,7 +20,7 @@ pub use os_release::*;
 
 /// Top-level structure containing all OS information
 #[derive(Debug, Serialize, Deserialize)]
-pub struct OSInfo {
+pub struct OsInfo {
     /// Version of the OS info schema
     #[serde(rename = "os-info-version")]
     pub version: String,

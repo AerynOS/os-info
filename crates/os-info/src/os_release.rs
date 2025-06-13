@@ -10,7 +10,7 @@
 use std::collections::HashMap;
 use std::fmt::Display;
 
-use crate::OSInfo;
+use crate::OsInfo;
 
 /// Represents a parsed os-release file with strongly typed standard fields
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -102,8 +102,8 @@ impl Display for OsRelease {
 }
 
 /// Convert an OSInfo into an os-release format
-impl From<&OSInfo> for OsRelease {
-    fn from(info: &OSInfo) -> Self {
+impl From<&OsInfo> for OsRelease {
+    fn from(info: &OsInfo) -> Self {
         let mut release = OsRelease::new(
             info.metadata.identity.name.clone(),
             info.metadata.identity.id.clone(),

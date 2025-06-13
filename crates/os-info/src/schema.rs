@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MPL-2.0
 
-use crate::{OSInfo, TechnologyCapabilities};
+use crate::{OsInfo, TechnologyCapabilities};
 use std::fs;
 use std::path::Path;
 
@@ -18,7 +18,7 @@ pub enum Error {
 }
 
 /// Loads and parses an os-info.json string
-pub fn load_os_info(content: &str) -> Result<OSInfo, Error> {
+pub fn load_os_info(content: &str) -> Result<OsInfo, Error> {
     serde_json::from_str(content).context(JsonParseSnafu)
 }
 
@@ -28,7 +28,7 @@ pub fn load_technology(content: &str) -> Result<TechnologyCapabilities, Error> {
 }
 
 /// Loads and parses an os-info.json file from a path
-pub fn load_os_info_from_path<P: AsRef<Path>>(path: P) -> Result<OSInfo, Error> {
+pub fn load_os_info_from_path<P: AsRef<Path>>(path: P) -> Result<OsInfo, Error> {
     let content = fs::read_to_string(path).context(FsReadSnafu)?;
     load_os_info(&content)
 }
