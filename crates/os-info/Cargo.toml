@@ -1,9 +1,10 @@
 [package]
 name = "os-info"
 version = "0.1.0"
-edition = "2021"
 license = "MPL-2.0"
 description = "Structured OS information standard"
+edition.workspace = true
+rust-version.workspace = true
 
 [dependencies]
 serde = { workspace = true, features = ["derive"] }

@@ -196,18 +196,22 @@ fn test_security_contact_and_policy_links() {
     assert_eq!(security_site.scope, WebsiteScope::SecurityPolicy);
 
     // Check technologies in composition (confirming security technologies are included as standard technologies)
-    assert!(os_info
-        .system
-        .composition
-        .technology
-        .core
-        .contains(&"apparmor".to_string()));
-    assert!(os_info
-        .system
-        .composition
-        .technology
-        .optional
-        .contains(&"selinux".to_string()));
+    assert!(
+        os_info
+            .system
+            .composition
+            .technology
+            .core
+            .contains(&"apparmor".to_string())
+    );
+    assert!(
+        os_info
+            .system
+            .composition
+            .technology
+            .optional
+            .contains(&"selinux".to_string())
+    );
 
     // Check conversion to OsRelease
     let release = OsRelease::from(&os_info);
