@@ -28,7 +28,7 @@ These paths are typically symlinks to the appropriate OS definition file in the 
 ```
 /usr/lib/os-info/
 ├── os/                    # OS definitions
-│   ├── serpent-os.json
+│   ├── aeryn-os.json
 │   ├── fedora.json
 │   └── ...
 └── technologies/          # Technology capabilities
