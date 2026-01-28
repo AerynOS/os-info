@@ -60,7 +60,7 @@
                   "name": { "type": "string" },
                   "role": {
                     "type": "string",
-                    "enum": ["founder", "project-steward", "maintainer", "contributor"]
+                    "enum": ["founder", "steward", "maintainer", "contributor"]
                   },
                   "email": { "type": "string" },
                   "start_date": {
