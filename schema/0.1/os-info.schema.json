@@ -27,7 +27,7 @@
             "id_like": { "type": "string" },
             "name": { "type": "string" },
             "display": { "type": "string" },
-            "ansi_color": { 
+            "ansi_color": {
               "type": "string",
               "description": "ANSI color escape sequence for terminal branding"
             },
@@ -60,7 +60,7 @@
                   "name": { "type": "string" },
                   "role": {
                     "type": "string",
-                    "enum": ["founder", "maintainer", "contributor"]
+                    "enum": ["founder", "project-steward", "maintainer", "contributor"]
                   },
                   "email": { "type": "string" },
                   "start_date": {
