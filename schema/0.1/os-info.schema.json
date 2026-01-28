@@ -1,13 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "required": [
-    "os-info-version",
-    "start_date",
-    "metadata",
-    "system",
-    "resources"
-  ],
+  "required": ["os-info-version", "start_date", "metadata", "system", "resources"],
   "properties": {
     "$schema": {
       "type": "string",
@@ -33,7 +27,7 @@
             "id_like": { "type": "string" },
             "name": { "type": "string" },
             "display": { "type": "string" },
-            "ansi_color": {
+            "ansi_color": { 
               "type": "string",
               "description": "ANSI color escape sequence for terminal branding"
             },
@@ -60,31 +54,26 @@
           "additionalProperties": {
             "type": "array",
             "items": {
-              "type": "object",
-              "required": ["name", "role", "email"],
-              "properties": {
-                "name": { "type": "string" },
-                "role": {
-                  "type": "string",
-                  "enum": [
-                    "founder",
-                    "project-steward",
-                    "maintainer",
-                    "contributor"
-                  ]
-                },
-                "email": { "type": "string" },
-                "start_date": {
-                  "type": "string",
-                  "format": "date-time",
-                  "description": "When the maintainer joined the project"
-                },
-                "end_date": {
-                  "type": "string",
-                  "format": "date-time",
-                  "description": "When the maintainer left the project (if applicable)"
+                "type": "object",
+                "required": ["name", "role", "email"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "role": {
+                    "type": "string",
+                    "enum": ["founder", "maintainer", "contributor"]
+                  },
+                  "email": { "type": "string" },
+                  "start_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "When the maintainer joined the project"
+                  },
+                  "end_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "When the maintainer left the project (if applicable)"
+                  }
                 }
-              }
             }
           }
         },
