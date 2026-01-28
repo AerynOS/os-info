@@ -105,6 +105,8 @@ pub struct Maintainer {
 pub enum MaintainerRole {
     /// Project founder
     Founder,
+    /// Project steward
+    Steward,
     /// Core maintainer
     Maintainer,
     /// Regular contributor
